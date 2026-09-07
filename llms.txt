@@ -1,29 +1,32 @@
 # SurgeLab
 
-> SurgeLab is marketing on autopilot for small businesses: a marketing team that runs on AI. Based in London and working everywhere, it checks whether AI assistants (ChatGPT, Gemini, Perplexity and Claude) find, describe and recommend the business (restaurants, online shops, salons, retail, consumer brands, trades and B2B alike), fixes what they get wrong, keeps its social channels posting and its reviews answered, week after week. The customer approves; SurgeLab runs it.
+> SurgeLab is marketing on autopilot for small businesses. Its AI agents check how ChatGPT, Gemini, Perplexity and Claude find, describe and recommend a business, fix what they get wrong, and run its marketing every week: posting, reviews, Google listing and a weekly score out of 100. The customer approves, SurgeLab runs it. Based in London, working everywhere.
 
-## The Front Door score
-One score out of 100, made of five gates scored 0 to 20 each:
-- Found: does AI know you exist?
-- Right: is what AI says about you true?
-- Clear: can AI answer what's on and what it costs?
-- Bookable: can a customer complete the booking?
-- Proven: did it turn into money?
+SurgeLab measures and fixes; it is not a dashboard. Every business gets a Front Door score out of 100, made of five gates scored 0 to 20 each: Found (does AI know you exist), Right (is what AI says about you true), Clear (can AI answer what is on offer and what it costs), Bookable (can a customer complete the booking or purchase), Proven (did it turn into money). Each week the score is re-checked and the lowest gate is fixed. Nothing publishes without the customer's approval. Works for restaurants, online shops, salons, consumer brands, trades and B2B alike. Pricing: one plan, Front Door, at £199 a month or £2,149 a year (10% off), excluding VAT, cancel any month. Add-ons: video and AI marketing agents, priced inside the tool. Agencies pay by brand count and book a call. Contact: support@surgelab.co.
 
-## What SurgeLab does
-- Free AI audit at https://socialtool.surgelab.co/can-ai-book-you: asks the AI assistants live, scores what they say back. No account or card needed.
-- Front Door plan: the score re-checked every week and the lowest gate fixed for the customer, 100 on-brand images a month with captions scheduled to Instagram, TikTok, Facebook and LinkedIn, Google Business Profile kept current, reviews answered. Nothing publishes without the customer's approval. SurgeLab measures and fixes; it is not a dashboard.
-- Add-ons: video (asset lock keeps logo, products, colours and faces consistent in every frame), AI marketing agents (a roster of 25, each with one job; hire two or more and The Chief of Staff joins free to run them and challenge each one to prove its value). White-label is available to agencies.
-- AI consultancy: strategy days, team training and custom agents. Book a call: https://calendly.com/james-surgelab/30min
-- Public research: the AI Bookability Index at https://socialtool.surgelab.co/ai-bookability-index.
+## Services
+
+- [Marketing on autopilot](https://surgelab.co/): what SurgeLab does, the five gates, how it works, add-ons, pricing and FAQ
+- [Free AI audit](https://surgelab.co/audit): two-minute check of whether AI assistants find, describe and recommend your business, no card or account
+- [AI marketing agents](https://surgelab.co/#agents): a roster of 25 single-job agents; hire two or more and The Chief of Staff joins free
+- [Video add-on](https://surgelab.co/#video): branded clips with asset lock, best model chosen automatically
+- [AI consultancy](https://surgelab.co/#consult): strategy days, team training and custom agents, with the founder
 
 ## Pricing
-Front Door: £199 a month, or £2,149 a year (10% off). Prices exclude VAT. Cancel any month. Payment happens inside the tool at the end of the free audit.
+
+- [Pricing](https://surgelab.co/#pricing): Front Door plan, £199 a month or £2,149 a year, prices exclude VAT, cancel any month
+- [Pricing in plain text](https://surgelab.co/pricing.md): the same plan and add-ons as a short machine-readable file
 
 ## Agencies
-Partner pricing scales with the number of brands an agency runs. White-label is available as an add-on. Agencies manage every brand from one dashboard. Enquiries: https://surgelab.co/agencies
+
+- [Agency partners](https://surgelab.co/agencies): every client brand in one dashboard, rates that scale with brand count, white-label available, book a call
 
 ## Contact
-- Email: support@surgelab.co
-- Sign in: https://socialtool.surgelab.co/login
-- Pages: https://surgelab.co/ (home), https://surgelab.co/audit (free audit), https://surgelab.co/agencies, https://surgelab.co/privacy-policy, https://surgelab.co/terms-and-conditions
+
+- [Book a 30 minute call](https://calendly.com/james-surgelab/30min): talk to James Birnbaum, founder
+- [Sign in to the tool](https://socialtool.surgelab.co/login): the SurgeLab product for existing customers
+
+## Optional
+
+- [Privacy policy](https://surgelab.co/privacy-policy): what data SurgeLab handles and why, including Google user data
+- [Terms and conditions](https://surgelab.co/terms-and-conditions): accounts, acceptable use, AI-generated content, fees and cancellation
