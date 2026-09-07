@@ -1,6 +1,7 @@
 # SurgeLab · https://surgelab.co
 User-agent: *
 Allow: /
+Disallow: /thanks
 
 # AI answer engines are welcome to cite us
 User-agent: GPTBot
