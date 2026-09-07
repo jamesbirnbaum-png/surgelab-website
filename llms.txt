@@ -1,6 +1,6 @@
 # SurgeLab
 
-> SurgeLab is marketing on autopilot for small businesses. Its AI agents check how ChatGPT, Gemini, Perplexity and Claude find, describe and recommend a business, fix what they get wrong, and run its marketing every week: posting, reviews, Google listing and a weekly score out of 100. The customer approves, SurgeLab runs it. Based in London, working everywhere.
+> SurgeLab is marketing on autopilot for small and mid-sized businesses. Its AI agents check how ChatGPT, Gemini, Perplexity and Claude find, describe and recommend a business, fix what they get wrong, and run its marketing every week: posting, reviews, Google listing and a weekly score out of 100. The customer approves, SurgeLab runs it. Based in London, working everywhere.
 
 SurgeLab measures and fixes; it is not a dashboard. Every business gets a Front Door score out of 100, made of five gates scored 0 to 20 each: Found (does AI know you exist), Right (is what AI says about you true), Clear (can AI answer what is on offer and what it costs), Bookable (can a customer complete the booking or purchase), Proven (did it turn into money). Each week the score is re-checked and the lowest gate is fixed. Nothing publishes without the customer's approval. Works for restaurants, online shops, salons, consumer brands, trades and B2B alike. Pricing: one plan, Front Door, at £199 a month or £2,149 a year (10% off), excluding VAT, cancel any month. Add-ons: video and AI marketing agents, priced inside the tool. Agencies pay by brand count and book a call. Contact: support@surgelab.co.
 
