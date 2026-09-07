@@ -1,6 +1,12 @@
+# Carried over from the 29 July 2026 deploy (six rules), unchanged
 /agencies              /agencies.html               200
 /privacy-policy        /privacy-policy.html         200
 /terms-and-conditions  /terms-and-conditions.html   200
 /privacy               /privacy-policy              301
 /terms                 /terms-and-conditions        301
 /login                 https://socialtool.surgelab.co/login   302
+
+# New pages in the September 2026 rebuild
+/audit                 /audit.html                  200
+/free-audit            /audit                       301
+/thanks                /thanks.html                 200
