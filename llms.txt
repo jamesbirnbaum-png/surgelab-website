@@ -1,0 +1,33 @@
+# SurgeLab
+
+> SurgeLab is a London-based, globally operating AI marketing agency and AI consultancy. It runs marketing production , content, paid media, SEO and Generative Engine Optimisation, analytics , using AI, and separately builds custom AI tooling for businesses. It also runs a wholesale/white-label partner programme for media and creative agencies.
+
+## What SurgeLab does
+- **AI content engine**: daily social posts, ad copy and email campaigns generated in the client's brand voice, approved in one click or fully automated. Channels: Instagram, Meta, TikTok, LinkedIn, email.
+- **Automated ad campaigns**: paid media on Meta and Google with continuous creative, audience and bid testing, optimised toward revenue.
+- **Real-time analytics**: one dashboard across channels, with weekly plain-English reporting.
+- **SEO, GEO and reputation**: traditional search optimisation plus Generative Engine Optimisation (being cited by ChatGPT, Perplexity, Google AI Overviews and Claude), Google Business optimisation, review automation and competitor monitoring.
+- **AI consultancy**: AI opportunity audits, custom integrations and internal tooling, workflow automation and team enablement. Founder-led, deliberately limited capacity.
+- **Websites**: conversion-optimised custom website builds as an add-on, typically delivered in five business days.
+
+## Agency partner programme
+SurgeLab acts as the content engine behind other agencies. The agency keeps the client relationship, the pricing and the credit; SurgeLab produces and schedules brand-consistent video, image and copy content. A white-label add-on puts the agency's logo, domain and colours across dashboards, reports, client portals and deliverables. Pricing is custom and wholesale; clients of the partner agency are never approached directly.
+
+## Proof points
+- 14 businesses onboarded to date.
+- 247% average reach increase across clients.
+- Live in about 5 minutes from signup.
+- Case study , Talk Thirty To Me (adult party card game, Amazon UK): 4.8x Amazon sales, 280,000 TikTok views per month, £0.38 cost per click, Amazon bestseller.
+- Case study , Aotrom (premium home fragrance, DTC): 3.1x Shopify revenue, 6.4x Google ROAS, 41% email open rate.
+
+## Commercial terms
+No long-term contracts on monthly plans, 14-day free trial, cancel anytime. Plan pricing is bespoke and quoted on a call rather than published.
+
+## Contact
+- Email: james@surgelab.co
+- Phone: +44 (0) 781 444 7652
+- Book a 30-minute call: https://cal.com/james-birnbaum-zgzeth/30min
+- Pages: https://surgelab.co/ (main), https://surgelab.co/agencies (partner programme), https://surgelab.co/privacy-policy, https://surgelab.co/terms-and-conditions
+
+## Growth Studio (client platform)
+Clients work in the SurgeLab Growth Studio at https://socialtool.surgelab.co/login: a per-brand workspace where onboarding captures brand voice, customer, goals and hard no's; the studio then generates posts, captions, hashtags and UGC video for Instagram, TikTok, Facebook and LinkedIn, manages Google Business Profile, photo tagging and promotions, and reports on performance. Nothing publishes without client approval unless full automation is switched on.
