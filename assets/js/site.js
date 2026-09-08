@@ -182,7 +182,8 @@
       var r = how.getBoundingClientRect();
       var range = how.offsetHeight - window.innerHeight;
       var p = Math.min(1, Math.max(0, -r.top / range));
-      var max = howTrack.scrollWidth - how.clientWidth + parseFloat(getComputedStyle(how).paddingLeft || 0);
+      var max = howTrack.scrollWidth - how.clientWidth;
+      if (max <= 0) { howTrack.style.transform = ""; if (howBar) howBar.style.width = "100%"; return; }
       howTrack.style.transform = "translate3d(" + (-p * max).toFixed(1) + "px,0,0)";
       if (howBar) howBar.style.width = p * 100 + "%";
     }
@@ -225,6 +226,8 @@
         amt.textContent = mode === "annual" ? "2,149" : "199";
         per.textContent = mode === "annual" ? "a year" : "a month";
         if (annualNote) annualNote.hidden = mode !== "annual";
+        var monthlyNote = $(".plan .monthly-note"); if (monthlyNote) monthlyNote.hidden = mode === "annual";
+        var sub = $("#subscribe-btn"); if (sub) sub.href = sub.href.replace(/interval=\w+/, "interval=" + mode);
       };
       if (reduce) { apply(); return; }
       price.classList.add("is-flipping");
@@ -252,17 +255,135 @@
     whoBtns.forEach(function (b) { b.addEventListener("click", function () { setWho(b.getAttribute("data-mode")); }); });
   }
 
-  /* ------------------------------------------------- audit hand-off form */
+  /* ------------------------------------------ the free audit, run in-page
+     Calls the tool's public, CORS-allowed endpoints from surgelab.co. If the
+     call cannot be made (an origin the tool does not allow, or no network),
+     it falls back to the old hand-off to the tool's own page. */
   var auditForm = $("#audit-form");
   if (auditForm) {
-    auditForm.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      var input = $("input[name=site]", auditForm);
-      var v = (input.value || "").trim();
-      var base = "https://socialtool.surgelab.co/can-ai-book-you";
-      if (v) { if (!/^https?:\/\//i.test(v)) v = "https://" + v; window.location.href = base + "?site=" + encodeURIComponent(v); }
-      else { window.location.href = base; }
-    });
+    var API = auditForm.getAttribute("data-api") || "https://socialtool.surgelab.co/api/public";
+    var HANDOFF = "https://socialtool.surgelab.co/can-ai-book-you";
+    var siteInput = $("input[name=site]", auditForm);
+    var goBtn = $("#audit-go"), goLabel = $(".go-label", auditForm);
+    var run = $("#audit-run"), prog = $(".ar-progress", run), progLine = $(".ar-line", run), errBox = $(".ar-error", run), resBox = $(".ar-result", run);
+    var LINES = ["Reading your website the way AI would...", "Working out what a customer would book or buy...", "Asking an AI assistant to do it, live...", "Asking a second assistant the same thing...", "Reading back exactly what they found...", "Scoring whether a real customer could have finished..."];
+    var lineTimer = null, running = false, current = null, currentSite = "";
+    function cleanSite(v) { v = (v || "").trim(); return v; }
+    function handoff(v) { window.location.href = v ? HANDOFF + "?site=" + encodeURIComponent(/^https?:\/\//i.test(v) ? v : "https://" + v) : HANDOFF; }
+    function setBusy(on) {
+      running = on; goBtn.disabled = on; if (goLabel) goLabel.textContent = on ? "Watching AI try..." : "Run my audit";
+      prog.hidden = !on;
+      if (on) { var i = 0; progLine.textContent = LINES[0]; lineTimer = setInterval(function () { i = Math.min(i + 1, LINES.length - 1); progLine.textContent = LINES[i]; }, 2200); }
+      else if (lineTimer) { clearInterval(lineTimer); lineTimer = null; }
+    }
+    function showError(msg) { errBox.textContent = msg; errBox.hidden = false; }
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+    function taskCopy(t) { return { purchase: "buy something from you", quote: "get a quote from you", pricing: "find out what you charge", contact: "find a working way to get in touch with you", booking: "book with you" }[t] || "find and understand what you offer"; }
+    function ring(score) {
+      var size = 148, stroke = 10, r = (size - stroke) / 2, c = 2 * Math.PI * r;
+      var wrap = el("div", "ar-ring");
+      var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); svg.setAttribute("viewBox", "0 0 " + size + " " + size); svg.setAttribute("aria-hidden", "true");
+      var bg = document.createElementNS("http://www.w3.org/2000/svg", "circle"); bg.setAttribute("cx", size / 2); bg.setAttribute("cy", size / 2); bg.setAttribute("r", r); bg.setAttribute("class", "bg"); svg.appendChild(bg);
+      if (score !== null) {
+        var fg = document.createElementNS("http://www.w3.org/2000/svg", "circle"); fg.setAttribute("cx", size / 2); fg.setAttribute("cy", size / 2); fg.setAttribute("r", r); fg.setAttribute("class", "fg");
+        fg.style.strokeDasharray = c; fg.style.strokeDashoffset = c; svg.appendChild(fg);
+        requestAnimationFrame(function () { requestAnimationFrame(function () { fg.style.strokeDashoffset = c - (score / 100) * c; }); });
+      }
+      wrap.appendChild(svg);
+      var mid = el("div", "mid"); var big = el("b", null, score !== null ? "0" : "?"); mid.appendChild(big); mid.appendChild(el("span", null, "out of 100")); wrap.appendChild(mid);
+      if (score !== null) { var t0 = null; var step = function (ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1100); big.textContent = String(Math.round(score * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); }
+      return wrap;
+    }
+    function gateClass(passed, total) { if (!total) return "pill"; if (passed === total) return "pill pill-ok"; if (passed === 0) return "pill pill-bad"; return "pill pill-warn"; }
+    function renderLocked(res) {
+      resBox.innerHTML = "";
+      var head = el("div", "ar-head"); head.appendChild(ring(null));
+      var txt = el("div"); txt.appendChild(el("h2", "display h3", res.businessName ? "Your free AI audit for " + res.businessName + " is ready" : "Your free AI audit is ready"));
+      txt.appendChild(el("p", "muted", "We asked live AI assistants to " + taskCopy(res.taskType) + ". Enter your email to see exactly what they found. No spam, one email.")); head.appendChild(txt); resBox.appendChild(head);
+      var f = el("form", "ar-lead"); f.setAttribute("novalidate", "");
+      var row = el("div", "row");
+      var f1 = el("div", "field"); var l1 = el("label", null, "Your email"); l1.htmlFor = "lead-email"; var i1 = el("input"); i1.id = "lead-email"; i1.type = "email"; i1.name = "email"; i1.required = true; i1.autocomplete = "email"; i1.placeholder = "you@yourbusiness.co.uk"; f1.appendChild(l1); f1.appendChild(i1);
+      var f2 = el("div", "field"); var l2 = el("label", null, "Phone (optional)"); l2.htmlFor = "lead-phone"; var i2 = el("input"); i2.id = "lead-phone"; i2.type = "tel"; i2.name = "phone"; i2.autocomplete = "tel"; i2.placeholder = "07..."; f2.appendChild(l2); f2.appendChild(i2);
+      row.appendChild(f1); row.appendChild(f2); f.appendChild(row);
+      var b = el("button", "btn btn-lg", "Show my results"); b.type = "submit"; f.appendChild(b);
+      f.addEventListener("submit", function (ev) {
+        ev.preventDefault(); if (b.disabled) return;
+        var email = i1.value.trim(); if (email.length < 3 || email.indexOf("@") < 1) { showError("That email does not look right."); return; }
+        errBox.hidden = true; b.disabled = true; b.textContent = "One moment...";
+        fetch(API + "/bookability-lead", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: email, phone: i2.value.trim() || undefined, checkId: res.checkId }) })
+          .then(function (r) { return r.json(); })
+          .then(function (body) { if (body.ok) { renderFull(body.result, true); } else { showError(body.message || "Could not save that just now. Try again in a moment."); b.disabled = false; b.textContent = "Show my results"; } })
+          .catch(function () { showError("Could not send that just now. Try again in a moment."); b.disabled = false; b.textContent = "Show my results"; });
+      });
+      resBox.appendChild(f); resBox.hidden = false;
+    }
+    function renderFull(res, sent) {
+      resBox.innerHTML = "";
+      var sum = res.summary;
+      var head = el("div", "ar-head"); head.appendChild(ring(sum.scoreOutOf100));
+      var txt = el("div"); txt.appendChild(el("h2", "display h3", res.businessName ? "Here is what AI found for " + res.businessName : "Here is what AI found"));
+      txt.appendChild(el("p", "muted", "Asked to " + taskCopy(res.taskType) + ", checked against " + sum.scoredPairs + (sum.scoredPairs === 1 ? " AI answer" : " AI answers") + (sum.engineErrorPairs > 0 ? " (" + sum.engineErrorPairs + " more could not be reached this time and are not counted either way)" : "") + "."));
+      head.appendChild(txt); resBox.appendChild(head);
+      if (sent) { var ok = el("p", "ar-sent"); ok.textContent = "Thanks, we have your details. Every gate below is something SurgeLab fixes for you, in the background."; resBox.appendChild(ok); }
+      var gates = el("div", "ar-gates");
+      sum.gates.forEach(function (g, i) {
+        var row = el("div", "ar-gate"); row.style.setProperty("--d", (i * 90) + "ms");
+        var top = el("div", "top"); var name = el("span"); name.appendChild(el("b", null, g.label)); name.appendChild(document.createTextNode(" " + g.question)); top.appendChild(name);
+        top.appendChild(el("span", gateClass(g.passedCount, g.totalScored), g.totalScored ? "passed " + g.passedCount + " of " + g.totalScored : "not checked")); row.appendChild(top);
+        if (g.failureNotes && g.failureNotes.length) { var ul = el("ul"); g.failureNotes.forEach(function (n) { ul.appendChild(el("li", null, "“" + n + "”")); }); row.appendChild(ul); }
+        gates.appendChild(row);
+      });
+      resBox.appendChild(gates);
+      var tbl = el("div", "ar-table"); tbl.appendChild(el("p", "mono muted", "What each assistant actually said"));
+      var table = el("table"); var thead = el("thead"); var tr = el("tr"); tr.appendChild(el("th", null, "Assistant"));
+      var order = ["found", "right", "clear", "bookable"]; var labels = {}; sum.gates.forEach(function (g) { labels[g.key] = g.label; });
+      order.forEach(function (k) { tr.appendChild(el("th", null, labels[k] || k)); }); thead.appendChild(tr); table.appendChild(thead);
+      var tb = el("tbody"); var engineName = { openai: "ChatGPT", perplexity: "Perplexity", gemini: "Gemini", claude: "Claude" };
+      sum.pairs.forEach(function (pr) {
+        var r = el("tr"); r.appendChild(el("td", null, engineName[pr.engine] || pr.engine));
+        if (pr.ok) { order.forEach(function (k) { var td = el("td", pr.steps[k] ? "yes" : "no", pr.steps[k] ? "✓" : "✗"); r.appendChild(td); }); }
+        else { var td = el("td", "muted", "Could not be reached this time, not counted"); td.colSpan = 4; r.appendChild(td); }
+        tb.appendChild(r);
+      });
+      table.appendChild(tb); tbl.appendChild(table); resBox.appendChild(tbl);
+      resBox.appendChild(el("p", "mono muted small", "We asked live AI assistants to complete this the way a customer using ChatGPT or Perplexity might, and scored exactly what came back. No real booking or purchase went through."));
+      var cta = el("div", "ar-cta");
+      var fix = el("a", "btn btn-lg", "Fix it for me"); fix.href = HANDOFF + "?site=" + encodeURIComponent(currentSite); cta.appendChild(fix);
+      var call = el("a", "btn btn-ghost btn-lg", "Book a call"); call.href = "https://cal.com/james-birnbaum-zgzeth/30min"; call.rel = "noopener"; cta.appendChild(call);
+      resBox.appendChild(cta);
+      resBox.appendChild(el("p", "mono muted small", "Fix it for me opens the tool, where the plan starts. Your result is saved for twelve hours, so it appears there straight away."));
+      resBox.hidden = false;
+      if (sent) resBox.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }
+    function renderResult(res) {
+      if (res.cached) { var c = el("p", "ar-cached mono muted small", "Showing a result from earlier today for this website. We re-check each site at most every twelve hours."); run.insertBefore(c, resBox); }
+      if (res.unreachable) { resBox.innerHTML = ""; resBox.appendChild(el("h2", "display h3", "We could not load your website just now.")); resBox.appendChild(el("p", "muted", "It may be down, or blocking automated visitors. Try again in a moment, or double-check the address.")); resBox.hidden = false; return; }
+      if (res.locked) { renderLocked(res); return; }
+      if (res.summary && res.summary.scoredPairs > 0) { renderFull(res, false); return; }
+      resBox.innerHTML = ""; resBox.appendChild(el("h2", "display h3", "We could not finish a live check just now.")); resBox.appendChild(el("p", "muted", "Try again in a moment. This is usually a busy patch on our end, not a problem with your site.")); resBox.hidden = false;
+    }
+    function runAudit(v) {
+      if (running) return; v = cleanSite(v); if (!v) { siteInput.focus(); return; }
+      currentSite = v; current = null;
+      run.hidden = false; errBox.hidden = true; resBox.hidden = true; resBox.innerHTML = ""; $$(".ar-cached", run).forEach(function (n) { n.remove(); });
+      setBusy(true);
+      var ctl = ("AbortController" in window) ? new AbortController() : null; var timer = ctl ? setTimeout(function () { ctl.abort(); }, 90000) : null;
+      fetch(API + "/bookability-check?site=" + encodeURIComponent(v), { signal: ctl ? ctl.signal : undefined })
+        .then(function (r) { return r.json().then(function (body) { return body; }, function () { throw { kind: "broken" }; }); })
+        .then(function (body) { setBusy(false); if (body.ok) { current = body; renderResult(body); } else { showError(body.message || "That address cannot be checked. Try your public website address."); } })
+        .catch(function (e) {
+          setBusy(false);
+          if (e && e.kind === "broken") { showError("Something broke on our end running that check. Try again in a moment."); return; }
+          if (e && e.name === "AbortError") { showError("That took longer than expected. Try again in a moment."); return; }
+          // Could not call the tool from this page (network, or an origin the tool does not allow). Hand over to the tool's own page.
+          handoff(v);
+        })
+        .then(function () { if (timer) clearTimeout(timer); });
+    }
+    auditForm.addEventListener("submit", function (ev) { ev.preventDefault(); runAudit(siteInput.value); });
+    $$("[data-scroll-form]").forEach(function (a) { a.addEventListener("click", function (ev) { ev.preventDefault(); siteInput.focus(); auditForm.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }); }); });
+    var qs = new URLSearchParams(window.location.search).get("site");
+    if (qs) { siteInput.value = qs.replace(/^https?:\/\//i, ""); runAudit(siteInput.value); }
   }
 
   /* ------------------------------------------- five doors and business type */

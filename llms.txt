@@ -21,10 +21,15 @@ SurgeLab measures and fixes; it is not a dashboard. Every business gets a Front 
 
 - [Agency partners](https://surgelab.co/agencies): every client brand in one dashboard, rates that scale with brand count, white-label available, book a call
 
+## About
+
+- [The lab](https://surgelab.co/about): who is behind SurgeLab, how the team of agents is run, and what it stands for
+
 ## Contact
 
-- [Book a 30 minute call](https://calendly.com/james-surgelab/30min): talk to James Birnbaum, founder
+- [Book a 30 minute call](https://cal.com/james-birnbaum-zgzeth/30min): talk to James Birnbaum, founder
 - [Sign in to the tool](https://socialtool.surgelab.co/login): the SurgeLab product for existing customers
+- [SurgeLab on LinkedIn](https://www.linkedin.com/company/surgelab-ai/): company page
 
 ## Optional
 

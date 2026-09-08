@@ -53,6 +53,7 @@
       <a href="/#tool">The tool</a>
       <a href="/#pricing">Pricing</a>
       <a href="/agencies">Agencies</a>
+      <a href="/about">About</a>
     </nav>
     <div class="header-actions">
       <a class="btn btn-ghost btn-signin" href="https://socialtool.surgelab.co/login">Sign in</a>
@@ -68,6 +69,7 @@
         <li><a href="/#tool">The tool</a></li>
         <li><a href="/#pricing">Pricing</a></li>
         <li><a href="/agencies">Agencies</a></li>
+        <li><a href="/about">About</a></li>
         <li><a href="https://socialtool.surgelab.co/login">Sign in</a></li>
       </ul>
     </div>
@@ -89,18 +91,23 @@
         <p class="lede" style="margin-bottom: 28px">We ask ChatGPT and Perplexity, live, to find you, describe you and buy from you or book you, the way a real customer would. Then we score what they actually said, out of 100. Two minutes. Works for restaurants, online shops, salons, brands and B2B alike.</p>
       </div>
 
-      <form id="audit-form" class="card audit-form" action="https://socialtool.surgelab.co/can-ai-book-you" method="get" data-reveal="scale" style="max-width: 820px">
+      <form id="audit-form" class="card audit-form" action="https://socialtool.surgelab.co/can-ai-book-you" method="get" data-reveal="scale" style="max-width: 820px" data-api="https://socialtool.surgelab.co/api/public">
         <div class="row">
           <div class="field" style="margin:0">
             <label for="site">Your website address</label>
             <input id="site" name="site" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.co.uk" aria-describedby="site-note">
           </div>
           <div style="display:flex; align-items:flex-end">
-            <a class="btn btn-lg" href="https://socialtool.surgelab.co/can-ai-book-you" id="audit-go" onclick="document.getElementById('audit-form').requestSubmit(); return false;">Run my audit <span class="arrow" aria-hidden="true">&rarr;</span></a>
+            <button class="btn btn-lg" type="submit" id="audit-go"><span class="go-label">Run my audit</span> <span class="arrow" aria-hidden="true">&rarr;</span></button>
           </div>
         </div>
-        <p class="note" id="site-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7M21 3l-9 9M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg> Opens in the SurgeLab tool. Your results appear there, and you can come back here any time.</p>
+        <p class="note" id="site-note">Runs right here on this page. About two minutes. No account, no card.</p>
       </form>
+      <div id="audit-run" class="audit-run" hidden aria-live="polite" style="max-width: 820px">
+        <div class="ar-progress" hidden><span class="spin" aria-hidden="true"></span><p class="ar-line">Reading your website the way AI would...</p></div>
+        <p class="ar-error" role="alert" hidden></p>
+        <div class="ar-result card" hidden></div>
+      </div>
     </div>
   </section>
 
@@ -115,7 +122,7 @@
           <ol class="timeline">
             <li class="card card-accent tl" style="--accent: var(--cyan); --accent-ink: var(--cyan-ink)" data-reveal><span class="n">1</span><div><b>You type your website address</b><span>Nothing else. No email yet, no card, no call.</span></div></li>
             <li class="card card-accent tl" style="--accent: var(--orange); --accent-ink: var(--orange-ink); --d: 80ms" data-reveal><span class="n">2</span><div><b>We ask the AI assistants, live</b><span>ChatGPT and Perplexity are asked to find you, describe you and buy from you or book you, the way a real customer would. We record exactly what they say.</span></div></li>
-            <li class="card card-accent tl" style="--accent: var(--amber); --accent-ink: var(--amber-ink); --d: 160ms" data-reveal><span class="n">3</span><div><b>You get your Front Door score</b><span>Found, Right, Clear, Bookable, Proven. Each out of 20, 100 in total, with the one thing to fix first.</span></div></li>
+            <li class="card card-accent tl" style="--accent: var(--amber); --accent-ink: var(--amber-ink); --d: 160ms" data-reveal><span class="n">3</span><div><b>You get your score out of 100</b><span>Found, Right, Clear and Bookable, each checked against what the assistants actually said. Proven, the fifth gate, needs your real numbers, so it comes with the plan. Each out of 20, 100 in total, with the one thing to fix first.</span></div></li>
             <li class="card card-accent tl" style="--accent: var(--green); --accent-ink: var(--green-ink); --d: 240ms" data-reveal><span class="n">4</span><div><b>You decide</b><span>Leave with the finding, or press "Fix it for me" and SurgeLab takes it from there. £199 a month, cancel any month, prices exclude VAT.</span></div></li>
           </ol>
         </div>
@@ -131,7 +138,7 @@
             <div class="row"><span><b>Right</b> · Is what AI says true?</span><span class="pill pill-ok">16 / 20</span></div>
             <div class="row"><span><b>Clear</b> · Can AI quote a price?</span><span class="pill pill-bad">9 / 20</span></div>
             <div class="row"><span><b>Bookable</b> · Did the order or booking go through?</span><span class="pill pill-warn">12 / 20</span></div>
-            <div class="row"><span><b>Proven</b> · Did it turn into money?</span><span class="pill pill-warn">10 / 20</span></div>
+            <div class="row"><span><b>Proven</b> · Did it turn into money?</span><span class="pill">With the plan</span></div>
             <p class="muted" style="margin: 16px 0 0; font-size: 15px">Fix first: <b class="ink">your menu is a PDF, so no assistant can quote a price.</b> The fix is a readable menu page. SurgeLab writes it.</p>
           </div>
           <p class="mono muted" style="margin-top: 14px; font-size: 12px">Honesty note: the audit does not click through a real checkout. It asks the assistants to try, live, and scores what they actually say back. That is stated on the results page too.</p>
@@ -144,9 +151,9 @@
     <div class="container">
       <div class="cta-band" data-reveal="scale">
         <h2 class="display h2">Ready when you are</h2>
-        <p class="lede">Type your website address at the top, or open the audit straight in the tool.</p>
+        <p class="lede">Type your website address at the top. Your score appears on this page in about two minutes.</p>
         <div class="btn-row">
-          <a class="btn btn-lg" href="https://socialtool.surgelab.co/can-ai-book-you">Open the audit in the tool <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn-lg" href="#site" data-scroll-form>Run my free audit <span class="arrow" aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
     </div>
@@ -168,12 +175,14 @@
         <a href="/audit">Free audit</a><br>
         <a href="/#pricing">Pricing</a><br>
         <a href="/agencies">Agencies</a><br>
+        <a href="/about">About</a><br>
         <a href="https://socialtool.surgelab.co/login">Sign in</a>
       </div>
       <div>
         <h3>Company</h3>
         <a href="mailto:support@surgelab.co">support@surgelab.co</a><br>
-        <a href="https://calendly.com/james-surgelab/30min" rel="noopener">Book a call</a><br>
+        <a href="https://cal.com/james-birnbaum-zgzeth/30min" rel="noopener">Book a call</a><br>
+        <a href="https://www.linkedin.com/company/surgelab-ai/" rel="noopener">LinkedIn</a><br>
         <a href="/privacy-policy">Privacy</a><br>
         <a href="/terms-and-conditions">Terms</a>
       </div>
