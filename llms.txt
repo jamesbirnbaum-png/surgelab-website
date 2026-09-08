@@ -34,5 +34,5 @@ SurgeLab measures and fixes; it is not a dashboard. Every business gets a Front 
 
 ## Optional
 
-- [Privacy policy](https://surgelab.co/privacy-policy): what data SurgeLab handles and why, including Google user data
-- [Terms and conditions](https://surgelab.co/terms-and-conditions): accounts, acceptable use, AI-generated content, fees and cancellation
+- [Privacy policy](https://surgelab.co/privacy): what data SurgeLab handles and why, including Google user data
+- [Terms of service](https://surgelab.co/terms): accounts, billing, cancelling, content ownership, acceptable use and liability
