@@ -836,3 +836,43 @@ details summary { cursor: pointer; }
 .toast small { font-size: 13px; opacity: 0.8; display: block; }
 a.toast:hover { background: #1c1a18; }
 @media (max-width: 600px) { .toasts { left: 12px; right: 12px; bottom: 12px; max-width: none; } }
+
+/* ------------------------------------------------ audit, run in-page */
+.audit-run { margin-top: 16px; display: grid; gap: 12px; }
+.ar-progress { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-size: 16px; color: var(--muted); }
+.ar-progress .spin { width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--line-2); border-top-color: var(--orange); animation: ar-spin 0.9s linear infinite; flex: none; }
+@keyframes ar-spin { to { transform: rotate(360deg); } }
+.ar-error { padding: 14px 18px; border-radius: 12px; background: #ffe4da; color: var(--orange-ink); font-size: 16px; }
+.ar-result { padding: clamp(20px, 3vw, 28px); display: grid; gap: 20px; animation: rise-in 0.5s var(--ease-out) both; }
+.ar-head { display: grid; gap: 18px; align-items: center; }
+@media (min-width: 640px) { .ar-head { grid-template-columns: 148px 1fr; } }
+.ar-head h2 { font-size: clamp(30px, 4vw, 40px); margin-bottom: 8px; }
+.ar-ring { position: relative; width: 148px; height: 148px; margin-inline: auto; }
+.ar-ring svg { width: 148px; height: 148px; transform: rotate(-90deg); }
+.ar-ring circle { fill: none; stroke-width: 10; }
+.ar-ring .bg { stroke: var(--line); }
+.ar-ring .fg { stroke: var(--orange); stroke-linecap: round; transition: stroke-dashoffset 1.1s var(--ease-out); }
+.ar-ring .mid { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+.ar-ring .mid b { font-family: var(--font-display); font-size: 48px; line-height: 1; color: var(--ink); }
+.ar-ring .mid span { font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.08em; }
+.ar-lead { display: grid; gap: 14px; padding: 18px; border-radius: 14px; border: 1px solid color-mix(in srgb, var(--orange) 40%, var(--line)); background: #fff8f4; }
+.ar-lead .row { display: grid; gap: 12px; }
+@media (min-width: 640px) { .ar-lead .row { grid-template-columns: 1fr 1fr; } }
+.ar-lead .field { margin: 0; }
+.ar-sent { padding: 14px 18px; border-radius: 12px; background: #dfede3; color: var(--green-ink); font-size: 16px; }
+.ar-gates { display: grid; gap: 10px; }
+.ar-gate { padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: #fff; animation: rise-in 0.5s var(--ease-out) both; animation-delay: var(--d, 0ms); }
+.ar-gate .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 14px; align-items: center; font-size: 16px; color: var(--muted); }
+.ar-gate .top b { color: var(--ink); }
+.ar-gate ul { list-style: none; margin-top: 8px; display: grid; gap: 4px; }
+.ar-gate li { font-size: 15px; color: var(--muted); }
+.ar-table { display: grid; gap: 8px; overflow-x: auto; }
+.ar-table table { width: 100%; border-collapse: collapse; font-size: 15px; background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.ar-table th, .ar-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: center; }
+.ar-table th:first-child, .ar-table td:first-child { text-align: left; }
+.ar-table th { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: var(--bg-2); }
+.ar-table tr:last-child td { border-bottom: 0; }
+.ar-table td.yes { color: var(--green-ink); font-weight: 700; }
+.ar-table td.no { color: var(--orange-ink); font-weight: 700; }
+.ar-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.small { font-size: 12px; }
