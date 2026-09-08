@@ -182,7 +182,8 @@
       var r = how.getBoundingClientRect();
       var range = how.offsetHeight - window.innerHeight;
       var p = Math.min(1, Math.max(0, -r.top / range));
-      var max = howTrack.scrollWidth - how.clientWidth + parseFloat(getComputedStyle(how).paddingLeft || 0);
+      var max = howTrack.scrollWidth - how.clientWidth;
+      if (max <= 0) { howTrack.style.transform = ""; if (howBar) howBar.style.width = "100%"; return; }
       howTrack.style.transform = "translate3d(" + (-p * max).toFixed(1) + "px,0,0)";
       if (howBar) howBar.style.width = p * 100 + "%";
     }
@@ -225,6 +226,8 @@
         amt.textContent = mode === "annual" ? "2,149" : "199";
         per.textContent = mode === "annual" ? "a year" : "a month";
         if (annualNote) annualNote.hidden = mode !== "annual";
+        var monthlyNote = $(".plan .monthly-note"); if (monthlyNote) monthlyNote.hidden = mode === "annual";
+        var sub = $("#subscribe-btn"); if (sub) sub.href = sub.href.replace(/interval=\w+/, "interval=" + mode);
       };
       if (reduce) { apply(); return; }
       price.classList.add("is-flipping");
@@ -346,7 +349,7 @@
       resBox.appendChild(el("p", "mono muted small", "We asked live AI assistants to complete this the way a customer using ChatGPT or Perplexity might, and scored exactly what came back. No real booking or purchase went through."));
       var cta = el("div", "ar-cta");
       var fix = el("a", "btn btn-lg", "Fix it for me"); fix.href = HANDOFF + "?site=" + encodeURIComponent(currentSite); cta.appendChild(fix);
-      var call = el("a", "btn btn-ghost btn-lg", "Book a call"); call.href = "https://calendly.com/james-surgelab/30min"; call.rel = "noopener"; cta.appendChild(call);
+      var call = el("a", "btn btn-ghost btn-lg", "Book a call"); call.href = "https://cal.com/james-birnbaum-zgzeth/30min"; call.rel = "noopener"; cta.appendChild(call);
       resBox.appendChild(cta);
       resBox.appendChild(el("p", "mono muted small", "Fix it for me opens the tool, where the plan starts. Your result is saved for twelve hours, so it appears there straight away."));
       resBox.hidden = false;

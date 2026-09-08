@@ -308,18 +308,18 @@ details summary { cursor: pointer; }
 .step h3 { font-size: 36px; }
 .step .tag-row { margin-top: 18px; }
 @media (min-width: 1024px) {
-  .how { height: 260vh; }
-  .how-sticky { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
-  .how-track { grid-template-columns: repeat(3, minmax(440px, 34vw)); gap: 28px; width: max-content; will-change: transform; }
-  .step { min-height: 400px; padding: 38px; }
-  .how-progress { height: 4px; background: rgba(11,10,9,0.08); border-radius: 999px; margin-top: 34px; overflow: hidden; max-width: 420px; }
-  .how-progress i { display: block; height: 100%; width: 0; background: var(--orange); }
+  /* Three cards side by side, no horizontal scroll: the old scroll-driven
+     track clipped the third card on wide screens. */
+  .how-track { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .step { padding: 34px 32px; }
+  .step .n { font-size: 80px; }
+  .step h3 { font-size: 32px; }
 }
-@media (max-width: 1023px) { .how-progress { display: none; } }
+.how-progress { display: none; }
 
 /* -------------------------------------------------- product demo window */
 .demo-wrap { position: relative; }
-.section:not(.how) { overflow: hidden; }
+.section { overflow: hidden; }
 .demo-glow { position: absolute; inset: -10% -6%; background: radial-gradient(60% 60% at 30% 30%, rgba(255,122,61,0.35), transparent 70%), radial-gradient(50% 50% at 75% 70%, rgba(125,211,252,0.35), transparent 70%), radial-gradient(40% 40% at 60% 20%, rgba(249,168,212,0.3), transparent 70%); pointer-events: none; }
 .window { position: relative; background: #fff; border: 1px solid var(--line-2); border-radius: var(--radius-lg); box-shadow: 0 50px 110px -40px rgba(30,20,0,0.35), 0 0 0 1px rgba(255,255,255,0.8) inset; overflow: hidden; }
 .window-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--bg); }
@@ -876,3 +876,35 @@ a.toast:hover { background: #1c1a18; }
 .ar-table td.no { color: var(--orange-ink); font-weight: 700; }
 .ar-cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .small { font-size: 12px; }
+
+/* pricing notes */
+.plan .vat b { color: var(--ink); }
+.plan .vat s { color: var(--muted); text-decoration-thickness: 2px; text-decoration-color: var(--orange); }
+.plan .monthly-note { color: var(--green-ink); }
+/* ------------------------------------------------------- about: the lab */
+.about-hero { padding: clamp(56px, 8vw, 110px) 0 clamp(32px, 5vw, 60px); }
+.about-hero .lede { max-width: 62ch; }
+.founder { display: grid; gap: 22px; align-items: center; padding: clamp(22px, 3vw, 34px); --accent: var(--orange); --accent-ink: var(--orange-ink); }
+@media (min-width: 720px) { .founder { grid-template-columns: 180px 1fr; gap: 34px; } }
+.founder .photo { width: 180px; height: 180px; border-radius: 28px; overflow: hidden; background: linear-gradient(135deg, #fff4ee, #fff); border: 1px solid color-mix(in srgb, var(--orange) 40%, var(--line)); display: grid; place-items: center; margin-inline: auto; }
+.founder .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.founder .photo .bot { width: 120px; height: 120px; margin: 0; }
+.founder h3 { font-size: 30px; margin-bottom: 4px; }
+.founder .role { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange-ink); margin-bottom: 12px; }
+.founder p { font-size: 16px; }
+.founder .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.org-chart { display: grid; gap: 12px; text-align: center; }
+.org-chart .tier { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.org-chart .node { padding: 12px 18px; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-weight: 600; font-size: 15px; }
+.org-chart .node.lead { background: var(--ink); color: #fff; }
+.org-chart .node.boss { border-color: color-mix(in srgb, var(--orange) 45%, var(--line)); background: #fff4ee; }
+.org-chart .node small { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 400; margin-top: 3px; }
+.org-chart .node.lead small { color: #f5edd6; }
+.org-chart .line { width: 2px; height: 22px; background: var(--orange); margin: 0 auto; }
+.beliefs .card b { display: block; font-family: var(--font-display); font-size: 28px; letter-spacing: 0.01em; margin-bottom: 8px; }
+.facts { display: grid; gap: 12px; }
+@media (min-width: 640px) { .facts { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .facts { grid-template-columns: repeat(4, 1fr); } }
+.facts .card { padding: 18px; }
+.facts .card small { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.facts .card b { font-size: 18px; }

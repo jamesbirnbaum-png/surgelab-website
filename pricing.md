@@ -17,7 +17,7 @@ Last updated: 7 September 2026. All prices in GBP and exclude VAT. Full page: ht
 ## Agencies
 
 - Every client brand in one dashboard. Rates scale with the number of brands. White-label is available as an add-on.
-- Agency rates are not published. Book a call: https://calendly.com/james-surgelab/30min
+- Agency rates are not published. Book a call: https://cal.com/james-birnbaum-zgzeth/30min
 
 ## Questions
 
