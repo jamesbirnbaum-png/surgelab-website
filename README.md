@@ -34,3 +34,10 @@ In Netlify, open Deploys, click the last deploy that was good, and press "Publis
 ## Local preview
 
 Any static file server works. The clean addresses (`/audit`, `/agencies`) depend on `_redirects`, which only Netlify reads, so locally use the `.html` names or a small server that understands the file.
+
+## Changing the site
+
+1. Edit the page (`*.html`) or `assets/css/site.css` or `assets/js/site.js`.
+2. If you touched the CSS, minify it: `npx csso assets/css/site.css --output assets/css/site.min.css`.
+3. Stamp the stylesheet and script links so browsers fetch the new version: `node tools/stamp-assets.mjs`. Without this step, returning visitors keep the old CSS and JS for up to 30 days (see `_headers`).
+4. Commit on a branch, open a pull request, check the Netlify deploy preview, merge to `main`. Netlify publishes `main` to surgelab.co within a minute.

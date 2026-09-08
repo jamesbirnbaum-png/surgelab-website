@@ -30,6 +30,7 @@ SurgeLab measures and fixes; it is not a dashboard. Every business gets a Front 
 - [Book a 30 minute call](https://cal.com/james-birnbaum-zgzeth/30min): talk to James Birnbaum, founder
 - [Sign in to the tool](https://socialtool.surgelab.co/login): the SurgeLab product for existing customers
 - [SurgeLab on LinkedIn](https://www.linkedin.com/company/surgelab-ai/): company page
+- [James Birnbaum on LinkedIn](https://www.linkedin.com/in/james-birnbaum/): founder, twelve years in technology partnerships (IBM, BT, Vodafone)
 
 ## Optional
 
