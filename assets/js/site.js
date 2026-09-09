@@ -473,8 +473,10 @@
     onEnter(gateCards, function (g) {
       gatesSeen++;
       var name = ($("h3", g) || {}).textContent || "Level"; var badge = ($(".badge", g) || {}).textContent || String(gatesSeen);
-      toast("Unlocked: " + name, "Level " + gatesSeen + " of " + gateCards.length + " seen", badge);
-      if (gatesSeen === gateCards.length) setTimeout(function () { toast("All five levels seen", "Now try it on your own business. Free, two minutes.", "★", "/audit"); }, 1600);
+      // Pop-ups removed after Ilan's review: six fired from scrolling alone,
+      // which is noise rather than a reward. Uncomment to put them back.
+      // toast("Unlocked: " + name, "Level " + gatesSeen + " of " + gateCards.length + " seen", badge);
+      // if (gatesSeen === gateCards.length) setTimeout(function () { toast("All five levels seen", "Now try it on your own business. Free, two minutes.", "★", "/audit"); }, 1600);
     }, 0.6, "0px 0px -10% 0px");
   }
 
@@ -493,7 +495,7 @@
       if (two && chiefBox.hidden) {
         chiefBox.hidden = false;
         requestAnimationFrame(function () { requestAnimationFrame(function () { chiefBox.classList.add("on"); }); });
-        toast("The Chief of Staff joined", "Free, because you hired two.", "★");
+        // toast("The Chief of Staff joined", "Free, because you hired two.", "★");
       } else if (!two) { chiefBox.hidden = true; chiefBox.classList.remove("on"); }
       teamCta.hidden = hired.length === 0;
       $$(".hire").forEach(function (b) { var on = hired.indexOf(b.getAttribute("data-agent")) > -1; b.setAttribute("aria-pressed", String(on)); b.textContent = on ? "Hired" : "Hire"; });
