@@ -990,24 +990,24 @@ a.toast:hover { background: #1c1a18; }
 @media (min-width: 900px) { .pair { grid-template-columns: 1fr 72px 1fr; gap: 0; } }
 
 .pair-side { border-radius: 20px; padding: clamp(22px, 3vw, 30px); display: flex; flex-direction: column; gap: 10px; }
-.pair-problem { background: var(--d-bg-2); border: 1px solid var(--d-line); }
-.pair-solution { background: var(--d-card); border: 1px solid color-mix(in srgb, var(--orange) 38%, transparent);
-  box-shadow: 0 30px 70px -40px color-mix(in srgb, var(--orange) 70%, transparent); }
+.pair-problem { background: var(--bg-2); border: 1px solid var(--line); }
+.pair-solution { background: var(--card); border: 1px solid color-mix(in srgb, var(--orange) 45%, transparent);
+  box-shadow: 0 30px 70px -44px color-mix(in srgb, var(--orange) 60%, transparent); }
 
 .pair-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
-.pair-problem .pair-tag { color: #6f6960; }
-.pair-solution .pair-tag { color: var(--orange); }
+.pair-problem .pair-tag { color: var(--muted-2); }
+.pair-solution .pair-tag { color: var(--orange-ink); }
 .pair-side p { margin: 0; font-size: clamp(17px, 2vw, 20px); line-height: 1.45; }
-.pair-problem p { color: #857e74; }
-.pair-solution p { color: var(--d-fg); }
+.pair-problem p { color: var(--muted-2); }
+.pair-solution p { color: var(--ink); }
 
-.pair-arrow { display: flex; align-items: center; justify-content: center; color: #4a453e; }
+.pair-arrow { display: flex; align-items: center; justify-content: center; color: var(--line-2); }
 .pair-arrow svg { width: 26px; height: 26px; transform: rotate(90deg); }
 @media (min-width: 900px) { .pair-arrow svg { transform: none; } }
 
 .pair-icon { width: 34px; height: 34px; flex: none; }
-.pair-problem .pair-icon { color: #4a453e; }
-.pair-solution .pair-icon { color: var(--orange); }
+.pair-problem .pair-icon { color: var(--muted-2); }
+.pair-solution .pair-icon { color: var(--orange-ink); }
 
 /* ==========================================================================
    BLOG
@@ -1133,3 +1133,11 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
 /* compact research cards for the home page: picture and headline, no blurb */
 .post-card.compact p { display: none; }
 .post-card.compact h3 { font-size: clamp(22px, 2.4vw, 27px); }
+
+/* the consultancy page is cream like the rest now, so its bit of difference is
+   this: the same slowly turning colour as the home page band, as a rule */
+.spectrum-rule { display: block; width: 190px; height: 5px; border-radius: 3px; margin: 26px 0 24px;
+  background: linear-gradient(90deg, #FF3C00, #FFB800, #34D399, #22D3EE, #60A5FA, #A78BFA, #F472B6, #FF3C00);
+  background-size: 300% 100%; animation: spectrum-slide 7s linear infinite; }
+@keyframes spectrum-slide { to { background-position: -300% 0; } }
+@media (prefers-reduced-motion: reduce) { .spectrum-rule { animation: none; } }
