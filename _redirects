@@ -14,5 +14,8 @@
 /audit                 /audit.html                  200
 /about                 /about.html                  200
 /consultancy           /consultancy.html            200
+/blog                                    /blog.html                   200
+/blog/ai-names-your-competitor           /blog-competitor.html        200
+/blog/how-people-find-businesses-now     /blog-ai-search.html         200
 /free-audit            /audit                       301
 /thanks                /thanks.html                 200

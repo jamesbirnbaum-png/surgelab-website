@@ -34,6 +34,9 @@ SurgeLab measures and fixes; it is not a dashboard. Every business gets a Front 
 
 ## Optional
 
+- [Research](https://surgelab.co/blog): SurgeLab's own measurements of how AI assistants describe real businesses
+- [AI named a competitor in 91% of answers](https://surgelab.co/blog/ai-names-your-competitor): 654 AI answers about SurgeLab customers, August 2026. A competitor was named in 91%, the business itself in 25%, and the business's own website was the cited source 3 times out of 373
+- [45% now use AI to find a local business](https://surgelab.co/blog/how-people-find-businesses-now): consumer use of AI assistants for local business discovery rose from 6% to 45% in a year; AI-referred visitors convert 42% better
 - [AI consultancy](https://surgelab.co/consultancy): James Birnbaum working directly with companies on an intelligent layer over their existing systems, getting more from the AI they already pay for, and enablement for leadership teams
 - [Privacy policy](https://surgelab.co/privacy): what data SurgeLab handles and why, including Google user data
 - [Terms of service](https://surgelab.co/terms): accounts, billing, cancelling, content ownership, acceptable use and liability
