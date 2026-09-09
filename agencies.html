@@ -26,7 +26,17 @@
   <link rel="preload" href="/assets/fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("js-anime")</script>
-  <link rel="stylesheet" href="/assets/css/site.min.css?v=0d5d7ef2">
+  <!-- Google Analytics. Held off until the visitor accepts cookies. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied'});
+    try{if(localStorage.getItem('sl-cookies')==='granted'){gtag('consent','update',{analytics_storage:'granted'});}}catch(e){}
+    gtag('js',new Date());
+    gtag('config','G-MWPDZ9F3QK');
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MWPDZ9F3QK"></script>
+  <link rel="stylesheet" href="/assets/css/site.min.css?v=9a990e11">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -275,6 +285,6 @@
 </footer>
 
 <script src="/assets/js/anime.umd.min.js" defer></script>
-<script src="/assets/js/site.js?v=fc7562bc" defer></script>
+<script src="/assets/js/site.js?v=ade5c7e3" defer></script>
 </body>
 </html>
