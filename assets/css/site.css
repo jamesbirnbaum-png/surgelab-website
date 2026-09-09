@@ -1125,9 +1125,10 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
 .consult-inner h2 { font-family: var(--font-display); text-transform: uppercase; color: #F5EDD6;
   font-size: clamp(32px, 5vw, 56px); line-height: 0.98; letter-spacing: 0.02em; margin: 10px 0 0; max-width: 17ch; }
 .consult-inner p { color: #B8B0A2; font-size: clamp(16px, 1.6vw, 19px); margin: 0; max-width: 46ch; }
-.consult-inner .more { display: inline-block; margin-top: 20px; font-weight: 700; color: #fff;
-  border-bottom: 2px solid #FF3C00; padding-bottom: 3px; }
-.consult-band:hover .consult-inner .more { color: #FF3C00; }
+.consult-actions { margin-top: 24px; }
+/* the ghost button is drawn for a cream page, so it needs a dark-band version */
+.consult-actions .btn-ghost { --btn-bg: transparent; --btn-ink: #F5EDD6; --btn-border: #45403a; box-shadow: none; }
+.consult-actions .btn-ghost:hover { --btn-border: #F5EDD6; box-shadow: none; }
 @media (prefers-reduced-motion: reduce) { .consult-edge { animation: none; } }
 
 /* compact research cards for the home page: picture and headline, no blurb */
@@ -1141,3 +1142,23 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
   background-size: 300% 100%; animation: spectrum-slide 7s linear infinite; }
 @keyframes spectrum-slide { to { background-position: -300% 0; } }
 @media (prefers-reduced-motion: reduce) { .spectrum-rule { animation: none; } }
+
+/* --------------------------------------------- slim research row, home page
+   Research is evidence, so it sits with the proof rather than as a section of
+   its own near the bottom. Small on purpose: it supports the argument above it
+   and must not compete with it. */
+.research-strip { border-top: 1px solid var(--line); padding-top: 22px; }
+.research-strip .eyebrow { margin-bottom: 14px; }
+.mini-list { grid-template-columns: 1fr; align-items: stretch; }
+@media (min-width: 820px) { .mini-list { grid-template-columns: 1fr 1fr auto; gap: 14px; align-items: center; } }
+.post-card.mini { flex-direction: row; align-items: center; gap: 16px; padding: 12px 16px 12px 12px;
+  border-radius: 14px; }
+.post-card.mini .post-thumb { width: 104px; flex: none; margin: 0; border: 1px solid var(--line);
+  border-radius: 8px; aspect-ratio: 1200 / 630; }
+.post-card.mini .mini-body { display: flex; flex-direction: column; gap: 4px; }
+.post-card.mini .kicker { font-size: 11px; }
+.post-card.mini h3 { font-family: var(--font-body); font-weight: 700; font-size: 16px; line-height: 1.3;
+  text-transform: none; letter-spacing: 0; color: var(--ink); }
+.mini-all { align-self: center; white-space: nowrap; font-weight: 700; color: var(--orange-ink);
+  text-decoration: none; font-size: 15px; }
+.mini-all:hover { text-decoration: underline; }
