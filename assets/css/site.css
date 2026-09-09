@@ -935,3 +935,76 @@ a.toast:hover { background: #1c1a18; }
   .cookie-bar p { flex: 0 0 auto; }
   .cookie-actions .cookie-yes, .cookie-actions .cookie-no { flex: 1; }
 }
+
+/* ==========================================================================
+   CONSULTANCY PAGE
+   Its own identity: dark, quieter, more space. The product site sells to a
+   restaurant owner in a hurry; this page sells to a family office. Same
+   brand tokens (OLED black, signal orange, cream), opposite temperature.
+   Scoped to .page-dark so nothing else on the site is touched.
+   ========================================================================== */
+.page-dark { background: var(--d-bg); color: var(--d-fg); }
+.page-dark {
+  --d-bg: #050505;
+  --d-bg-2: #0b0a09;
+  --d-card: #121110;
+  --d-fg: #f2f0ec;
+  --d-muted: #a29c93;
+  --d-line: #26241f;
+}
+
+/* chrome */
+.page-dark .site-header { background: color-mix(in srgb, var(--d-bg) 86%, transparent); border-bottom-color: var(--d-line); }
+.page-dark .logo, .page-dark .nav a:hover, .page-dark .site-footer a { color: var(--d-fg); }
+.page-dark .nav a { color: var(--d-muted); }
+.page-dark .menu-btn { border-color: var(--d-line); }
+.page-dark .menu-btn span, .page-dark .menu-btn span::before, .page-dark .menu-btn span::after { background: var(--d-fg); }
+.page-dark .mobile-nav { background: var(--d-bg); border-color: var(--d-line); }
+.page-dark .mobile-nav a { color: var(--d-fg); }
+.page-dark .btn-ghost { --btn-bg: transparent; --btn-ink: var(--d-fg); --btn-border: #3a3630; box-shadow: none; }
+.page-dark .btn-ghost:hover { --btn-border: var(--d-fg); box-shadow: none; }
+.page-dark .site-footer { background: var(--d-bg); border-top-color: var(--d-line); }
+.page-dark .site-footer p, .page-dark .foot-bottom { color: var(--d-muted); }
+.page-dark .site-footer h3 { color: var(--d-muted); }
+
+/* type */
+.page-dark h1, .page-dark h2, .page-dark h3, .page-dark strong, .page-dark b { color: var(--d-fg); }
+.page-dark .lede, .page-dark p, .page-dark .prose p, .page-dark li { color: var(--d-muted); }
+.page-dark .eyebrow { color: var(--d-muted); }
+.page-dark .prose a { color: var(--orange); }
+.page-dark .about-hero, .page-dark .section, .page-dark .section-tight { background: transparent; }
+.page-dark .section-tint, .page-dark .section-white { background: var(--d-bg-2); }
+
+/* cards */
+.page-dark .card { background: var(--d-card); border-color: var(--d-line); box-shadow: none; }
+.page-dark .card-accent::before { opacity: 0.9; }
+
+/* faq */
+.page-dark .faq details { border-color: var(--d-line); }
+.page-dark .faq summary { color: var(--d-fg); }
+.page-dark .faq summary .plus::before, .page-dark .faq summary .plus::after { background: var(--d-fg); }
+
+/* ------------------------------------------------ problem -> solution pairs */
+.pairs { display: grid; gap: 18px; }
+.pair { display: grid; gap: 12px; grid-template-columns: 1fr; align-items: stretch; }
+@media (min-width: 900px) { .pair { grid-template-columns: 1fr 72px 1fr; gap: 0; } }
+
+.pair-side { border-radius: 20px; padding: clamp(22px, 3vw, 30px); display: flex; flex-direction: column; gap: 10px; }
+.pair-problem { background: var(--d-bg-2); border: 1px solid var(--d-line); }
+.pair-solution { background: var(--d-card); border: 1px solid color-mix(in srgb, var(--orange) 38%, transparent);
+  box-shadow: 0 30px 70px -40px color-mix(in srgb, var(--orange) 70%, transparent); }
+
+.pair-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+.pair-problem .pair-tag { color: #6f6960; }
+.pair-solution .pair-tag { color: var(--orange); }
+.pair-side p { margin: 0; font-size: clamp(17px, 2vw, 20px); line-height: 1.45; }
+.pair-problem p { color: #857e74; }
+.pair-solution p { color: var(--d-fg); }
+
+.pair-arrow { display: flex; align-items: center; justify-content: center; color: #4a453e; }
+.pair-arrow svg { width: 26px; height: 26px; transform: rotate(90deg); }
+@media (min-width: 900px) { .pair-arrow svg { transform: none; } }
+
+.pair-icon { width: 34px; height: 34px; flex: none; }
+.pair-problem .pair-icon { color: #4a453e; }
+.pair-solution .pair-icon { color: var(--orange); }
