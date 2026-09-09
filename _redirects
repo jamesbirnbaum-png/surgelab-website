@@ -13,5 +13,6 @@
 # New pages in the September 2026 rebuild
 /audit                 /audit.html                  200
 /about                 /about.html                  200
+/consultancy           /consultancy.html            200
 /free-audit            /audit                       301
 /thanks                /thanks.html                 200

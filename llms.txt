@@ -34,5 +34,6 @@ SurgeLab measures and fixes; it is not a dashboard. Every business gets a Front 
 
 ## Optional
 
+- [AI consultancy](https://surgelab.co/consultancy): James Birnbaum working directly with companies on an intelligent layer over their existing systems, getting more from the AI they already pay for, and enablement for leadership teams
 - [Privacy policy](https://surgelab.co/privacy): what data SurgeLab handles and why, including Google user data
 - [Terms of service](https://surgelab.co/terms): accounts, billing, cancelling, content ownership, acceptable use and liability
