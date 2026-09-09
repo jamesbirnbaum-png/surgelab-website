@@ -575,3 +575,44 @@
   /* ---------------------------------------- current year in the footer */
   $$("[data-year]").forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
 })();
+
+
+/* ---------------------------------------------------------------------------
+   Cookie notice. Google Analytics is loaded on every page but starts with
+   consent denied, so it sets no cookies until someone presses Accept here.
+   The choice is remembered in this browser, so the bar shows once.
+   -------------------------------------------------------------------------*/
+(function () {
+  var KEY = "sl-cookies";
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  if (stored === "granted" || stored === "denied") return;
+
+  var bar = document.createElement("div");
+  bar.className = "cookie-bar";
+  bar.setAttribute("role", "region");
+  bar.setAttribute("aria-label", "Cookies");
+  bar.innerHTML =
+    '<p>We use cookies to count visits and see which pages get read. ' +
+    'No advertising, and nothing sold on. ' +
+    '<a href="/privacy">Privacy policy</a>.</p>' +
+    '<div class="cookie-actions">' +
+    '<button type="button" class="btn cookie-yes" data-cookie="granted">Accept</button>' +
+    '<button type="button" class="cookie-no" data-cookie="denied">Decline</button>' +
+    "</div>";
+
+  function save(value) {
+    try { localStorage.setItem(KEY, value); } catch (e) {}
+    if (value === "granted" && typeof window.gtag === "function") {
+      window.gtag("consent", "update", { analytics_storage: "granted" });
+    }
+    bar.parentNode && bar.parentNode.removeChild(bar);
+  }
+
+  bar.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-cookie]");
+    if (btn) save(btn.getAttribute("data-cookie"));
+  });
+
+  document.body.appendChild(bar);
+})();
