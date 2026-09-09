@@ -1072,3 +1072,64 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
 .dot-key { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 14px; font-size: 14px; color: var(--muted); }
 .dot-key span { display: inline-flex; align-items: center; gap: 8px; }
 .dot-key i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+
+/* ------------------------------------------------- blog images, added after
+   James asked for visuals in the research. Nothing borrowed: the card
+   thumbnails are the share pictures, the rest is drawn in CSS. */
+.post-card { padding-top: 0; overflow: hidden; }
+.post-thumb { display: block; width: calc(100% + 2px); margin: -1px -1px 4px; aspect-ratio: 1200 / 630;
+  object-fit: cover; border-bottom: 1px solid var(--line); background: var(--bg-2); }
+.post-card > :not(.post-thumb) { padding-left: 0; padding-right: 0; }
+
+/* a real AI answer, with the business names blanked out */
+.answer { margin: 34px 0; border: 1px solid var(--line); border-radius: 18px; background: var(--card);
+  padding: 22px 24px; }
+.answer-q { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.06em; color: var(--muted-2);
+  text-transform: uppercase; margin: 0 0 14px; }
+.answer-q b { color: var(--ink); text-transform: none; letter-spacing: 0; font-family: var(--font-body);
+  font-size: 16px; display: block; margin-top: 6px; font-weight: 500; }
+.answer-a { font-size: 17px; line-height: 1.6; color: var(--muted); margin: 0;
+  padding-top: 14px; border-top: 1px solid var(--line); }
+.redact { display: inline-block; vertical-align: baseline; background: var(--orange); color: #fff;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 5px; }
+.redact.other { background: var(--muted-2); }
+
+/* where AI now sits among the ways people find a business */
+.ladder { display: grid; gap: 8px; margin: 0; }
+.ladder-row { display: flex; align-items: center; gap: 14px; padding: 13px 16px; border-radius: 12px;
+  background: var(--bg-2); border: 1px solid transparent; }
+.ladder-rank { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--muted-2); width: 22px; }
+.ladder-name { font-family: var(--font-display); font-size: 24px; letter-spacing: 0.02em;
+  text-transform: uppercase; color: var(--ink); line-height: 1; }
+.ladder-note { margin-left: auto; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted-2); }
+.ladder-row.is-new { background: var(--card); border-color: var(--orange); }
+.ladder-row.is-new .ladder-rank, .ladder-row.is-new .ladder-note { color: var(--orange-ink); }
+
+/* ------------------------------------- consultancy band on the home page.
+   Consultancy came out of the top menu, so it needs a place of its own.
+   A slowly turning multicolour edge round a black card, which is the only
+   thing on the cream home page that looks like this. */
+.consult-band { position: relative; display: block; border-radius: 28px; padding: 3px;
+  overflow: hidden; text-decoration: none; isolation: isolate; }
+.consult-edge { position: absolute; inset: -75%; z-index: 0;
+  background: conic-gradient(from 0deg, #FF3C00, #FFB800, #34D399, #22D3EE, #60A5FA, #A78BFA, #F472B6, #FF3C00);
+  animation: consult-spin 11s linear infinite; }
+@keyframes consult-spin { to { transform: rotate(360deg); } }
+.consult-inner { position: relative; z-index: 1; display: grid; border-radius: 25px;
+  background: #050505; color: #F5EDD6; padding: clamp(28px, 4.4vw, 52px); gap: clamp(18px, 3vw, 40px); }
+@media (min-width: 880px) { .consult-inner { grid-template-columns: 1.15fr 1fr; align-items: end; } }
+.consult-col { display: block; }
+.consult-inner .eyebrow { color: #FFB800; }
+.consult-inner h2 { font-family: var(--font-display); text-transform: uppercase; color: #F5EDD6;
+  font-size: clamp(32px, 5vw, 56px); line-height: 0.98; letter-spacing: 0.02em; margin: 10px 0 0; max-width: 17ch; }
+.consult-inner p { color: #B8B0A2; font-size: clamp(16px, 1.6vw, 19px); margin: 0; max-width: 46ch; }
+.consult-inner .more { display: inline-block; margin-top: 20px; font-weight: 700; color: #fff;
+  border-bottom: 2px solid #FF3C00; padding-bottom: 3px; }
+.consult-band:hover .consult-inner .more { color: #FF3C00; }
+@media (prefers-reduced-motion: reduce) { .consult-edge { animation: none; } }
+
+/* compact research cards for the home page: picture and headline, no blurb */
+.post-card.compact p { display: none; }
+.post-card.compact h3 { font-size: clamp(22px, 2.4vw, 27px); }
