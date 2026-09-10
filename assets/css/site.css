@@ -1176,3 +1176,17 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
 .ar-gate .ar-sowhat { margin-top: 8px; font-size: 15px; color: var(--ink); }
 .ar-gate .ar-fix { margin-top: 8px; font-size: 15px; color: var(--muted); }
 .ar-gate .ar-fix b { color: var(--ink); }
+
+/* Audit: the AI-crawler alert, the page's own findings, the gated tease.
+   Added 10 Sep 2026 — the report used to be four gate rows and nothing else. */
+.ar-alert { padding: 18px 20px; border-radius: 16px; border: 1px solid var(--brand); background: #fff; display: grid; gap: 10px; }
+.ar-alert h3 { margin: 0; }
+.ar-alert p { margin: 0; font-size: 16px; }
+.ar-snippet { margin: 0; padding: 12px 14px; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--line); font-family: var(--font-mono); font-size: 13px; white-space: pre-wrap; overflow-x: auto; }
+.ar-findings { display: grid; gap: 10px; }
+.ar-findings h3 { margin: 0 0 2px; }
+.ar-finding { padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: #fff; animation: rise-in 0.5s var(--ease-out) both; animation-delay: var(--d, 0ms); }
+.ar-finding b { display: block; font-size: 16px; }
+.ar-finding p { margin: 6px 0 0; font-size: 15px; }
+.ar-tease { margin: 0; font-size: 17px; }
+.ar-coverage { margin: 0; }

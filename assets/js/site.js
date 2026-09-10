@@ -300,6 +300,20 @@
       var head = el("div", "ar-head"); head.appendChild(ring(null));
       var txt = el("div"); txt.appendChild(el("h2", "display h3", res.businessName ? "Your free AI audit for " + res.businessName + " is ready" : "Your free AI audit is ready"));
       txt.appendChild(el("p", "muted", "We asked live AI assistants to " + taskCopy(res.taskType) + ". Enter your email to see exactly what they found. No spam, one email.")); head.appendChild(txt); resBox.appendChild(head);
+      // WHAT IS BEING WITHHELD, stated as a number. The server sends counts
+      // alongside the gate so the offer can be specific and true, rather
+      // than a locked panel that says nothing. "Seven things costing you
+      // customers" is a far better reason to hand over an email than "your
+      // results are ready".
+      var lc = res.lockedCounts;
+      if (lc && (lc.findings > 0 || lc.blockedCrawlers > 0)) {
+        var bits = [];
+        if (lc.findings > 0) bits.push(lc.findings === 1 ? "1 thing on your site costing you customers" : lc.findings + " things on your site costing you customers");
+        if (lc.blockedCrawlers > 0) bits.push(lc.blockedCrawlers === 1 ? "1 AI crawler being turned away" : lc.blockedCrawlers + " AI crawlers being turned away");
+        var tease = el("p", "ar-tease");
+        tease.appendChild(el("b", null, "We found " + bits.join(", and ") + "."));
+        resBox.appendChild(tease);
+      }
       var f = el("form", "ar-lead"); f.setAttribute("novalidate", "");
       var row = el("div", "row");
       var f1 = el("div", "field"); var l1 = el("label", null, "Your email"); l1.htmlFor = "lead-email"; var i1 = el("input"); i1.id = "lead-email"; i1.type = "email"; i1.name = "email"; i1.required = true; i1.autocomplete = "email"; i1.placeholder = "you@yourbusiness.co.uk"; f1.appendChild(l1); f1.appendChild(i1);
@@ -355,6 +369,34 @@
         resBox.appendChild(vb);
       }
 
+      // WHETHER AI CAN READ YOU AT ALL. Placed above the gates when it is
+      // bad news, because "the crawlers ChatGPT uses are being turned away"
+      // outranks every other finding in this report: nothing else matters
+      // much if they cannot get in. Carries the paste-ready fix.
+      var acc = res.aiAccess;
+      if (acc && acc.checked && (acc.blocked.length || acc.metaBlocksAi)) {
+        var ab = el("div", "ar-alert");
+        ab.appendChild(el("h3", "display h4", acc.blocked.length
+          ? "Your site is turning away the AI crawlers that feed these answers"
+          : "Your site carries a tag telling AI not to use your pages"));
+        if (acc.blocked.length) {
+          ab.appendChild(el("p", null, "Blocked right now: " + acc.blocked.join(", ") + ". These are the crawlers that read your site so assistants can quote you. While they are shut out, AI is answering about you from whatever it can find elsewhere."));
+        }
+        if (acc.metaBlocksAi) {
+          ab.appendChild(el("p", null, "A meta tag on your homepage tells AI not to use the page. This is easy to miss, because a perfectly welcoming robots.txt hides it completely."));
+        }
+        if (acc.fixSnippet) {
+          ab.appendChild(el("p", "mono muted small", "ADD THIS TO YOUR ROBOTS.TXT"));
+          var pre = el("pre", "ar-snippet"); pre.textContent = acc.fixSnippet; ab.appendChild(pre);
+        }
+        resBox.appendChild(ab);
+      } else if (acc && acc.checked && acc.robotsFetchStatus === "found" && acc.allowed.length) {
+        var okb = el("div", "ar-note");
+        okb.appendChild(el("b", null, "AI crawlers are allowed in."));
+        okb.appendChild(el("p", "muted", acc.allowed.join(", ") + " can read your site, which is the baseline everything else here depends on. Worth keeping that way."));
+        resBox.appendChild(okb);
+      }
+
       var gates = el("div", "ar-gates");
       sum.gates.forEach(function (g, i) {
         var row = el("div", "ar-gate"); row.style.setProperty("--d", (i * 90) + "ms");
@@ -371,6 +413,23 @@
         gates.appendChild(row);
       });
       resBox.appendChild(gates);
+      // THE PAGE'S OWN PROBLEMS. This is what stops a healthy business
+      // getting an all-green screen and "nothing to change" — a site can
+      // pass all four gates while publishing no prices, no opening hours
+      // and no structured data. Free to produce: read straight off the page.
+      var sf = res.siteFindings;
+      if (sf && sf.length) {
+        var fb = el("div", "ar-findings");
+        fb.appendChild(el("h3", "display h4", sf.length === 1 ? "1 other thing costing you customers" : sf.length + " other things costing you customers"));
+        sf.forEach(function (f, i) {
+          var row = el("div", "ar-finding"); row.style.setProperty("--d", (i * 60) + "ms");
+          row.appendChild(el("b", null, f.headline));
+          row.appendChild(el("p", "muted", f.soWhat));
+          fb.appendChild(row);
+        });
+        resBox.appendChild(fb);
+      }
+
       var tbl = el("div", "ar-table"); tbl.appendChild(el("p", "mono muted", "What each assistant actually said"));
       var table = el("table"); var thead = el("thead"); var tr = el("tr"); tr.appendChild(el("th", null, "Assistant"));
       var order = ["found", "right", "clear", "bookable"]; var labels = {}; sum.gates.forEach(function (g) { labels[g.key] = g.label; });
@@ -384,6 +443,18 @@
       });
       table.appendChild(tb); tbl.appendChild(table); resBox.appendChild(tbl);
       resBox.appendChild(el("p", "mono muted small", "We asked live AI assistants to complete this the way a customer using ChatGPT or Perplexity might, and scored exactly what came back. No real booking or purchase went through."));
+      // What this free check did and did not cover. Deliberately NOT phrased
+      // as "unlock your Claude results": the free check never asks Claude or
+      // Gemini anything, so there is no withheld result to unlock, and
+      // implying one would be a lie on a product whose whole promise is
+      // telling businesses the truth about what AI says.
+      var checked = sum.scoredPairs || 0;
+      if (checked > 0) {
+        resBox.appendChild(el("p", "ar-coverage muted small",
+          (checked === 1 ? "This free check asked one AI assistant." : "This free check asked " + checked + " AI assistants.") +
+          " A paid plan also checks Claude and Gemini, re-runs the whole thing on a schedule so you can see it change, and tracks the fixes."));
+      }
+
       var cta = el("div", "ar-cta");
       var fix = el("a", "btn btn-lg", "Fix it for me"); fix.href = HANDOFF + "?site=" + encodeURIComponent(currentSite); cta.appendChild(fix);
       var call = el("a", "btn btn-ghost btn-lg", "Book a call"); call.href = "https://cal.com/james-birnbaum-zgzeth/30min"; call.rel = "noopener"; cta.appendChild(call);
@@ -403,9 +474,21 @@
       // Only dead-end when there is genuinely nothing else to show.
       if (res.unreachable && !res.locked && !(res.summary && res.summary.scoredPairs > 0)) {
         resBox.innerHTML = "";
-        resBox.appendChild(el("h2", "display h3", "We could not read your website automatically."));
-        resBox.appendChild(el("p", "muted", "This is usually security screening on your site turning away automated visitors, which is a sensible thing for it to be doing. It does not mean anything is wrong with your website, and real customers browsing it are unaffected."));
-        resBox.appendChild(el("p", "muted", "This attempt has not counted towards your free checks, so you can try another address straight away. Whether AI crawlers can get in is a separate question worth checking."));
+        resBox.appendChild(el("h2", "display h3", "Your site would not let an automated reader in."));
+        resBox.appendChild(el("p", null, "We were turned away, which is usually security screening doing its job. Real customers browsing your site in a browser are unaffected."));
+        // The honest limit, and it matters: OUR refusal is not evidence about
+        // GPTBot. Plenty of sites screen unknown bots while explicitly
+        // welcoming the named AI crawlers. robots.txt is the evidence for
+        // what AI crawlers may do, so if we managed to read it, say what it
+        // actually said rather than implying anything from our own refusal.
+        var a = res.aiAccess;
+        if (a && a.checked && a.blocked.length) {
+          resBox.appendChild(el("p", null, "It is not just us. Your robots.txt is also turning away " + a.blocked.join(", ") + " — the crawlers that read your site so AI assistants can quote you accurately. That part is fixable, and it is worth fixing."));
+          if (a.fixSnippet) { var pre = el("pre", "ar-snippet"); pre.textContent = a.fixSnippet; resBox.appendChild(pre); }
+        } else if (a && a.checked && a.allowed.length) {
+          resBox.appendChild(el("p", "muted", "Good news on the part that matters most: your robots.txt does allow " + a.allowed.join(", ") + " in, so the AI crawlers themselves are not being blocked."));
+        }
+        resBox.appendChild(el("p", "muted", "This attempt has not counted towards your free checks, so you can try another address straight away."));
         resBox.hidden = false;
         return;
       }
