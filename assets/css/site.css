@@ -1162,3 +1162,8 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
 .mini-all { align-self: center; white-space: nowrap; font-weight: 700; color: var(--orange-ink);
   text-decoration: none; font-size: 15px; }
 .mini-all:hover { text-decoration: underline; }
+
+/* one quiet line introducing the optional extras, instead of a second big
+   heading stacked on top of the two they already have */
+.addons-note { max-width: 62ch; margin: 0 0 clamp(28px, 4vw, 48px); color: var(--muted);
+  font-size: clamp(16px, 1.7vw, 19px); line-height: 1.55; }
