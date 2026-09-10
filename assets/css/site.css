@@ -1176,7 +1176,10 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
 .ar-gate .ar-sowhat { margin-top: 8px; font-size: 15px; color: var(--ink); }
 .ar-gate .ar-fix { margin-top: 8px; font-size: 15px; color: var(--muted); }
 .ar-gate .ar-fix b { color: var(--ink); }
-
+/* one quiet line introducing the optional extras, instead of a second big
+   heading stacked on top of the two they already have */
+.addons-note { max-width: 62ch; margin: 0 0 clamp(28px, 4vw, 48px); color: var(--muted);
+  font-size: clamp(16px, 1.7vw, 19px); line-height: 1.55; }
 /* Audit: the AI-crawler alert, the page's own findings, the gated tease.
    Added 10 Sep 2026 — the report used to be four gate rows and nothing else. */
 .ar-alert { padding: 18px 20px; border-radius: 16px; border: 1px solid var(--brand); background: #fff; display: grid; gap: 10px; }
