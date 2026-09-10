@@ -385,9 +385,12 @@
         if (acc.metaBlocksAi) {
           ab.appendChild(el("p", null, "A meta tag on your homepage tells AI not to use the page. This is easy to miss, because a perfectly welcoming robots.txt hides it completely."));
         }
-        if (acc.fixSnippet) {
-          ab.appendChild(el("p", "mono muted small", "ADD THIS TO YOUR ROBOTS.TXT"));
-          var pre = el("pre", "ar-snippet"); pre.textContent = acc.fixSnippet; ab.appendChild(pre);
+        // THE PROBLEM IS THE HOOK; THE FIX IS THE PRODUCT. The paste-ready
+        // robots.txt lines are deliberately not sent to this page at all —
+        // see the API's own note. Rendering a redacted version would be
+        // pointless; the payload simply does not carry them.
+        if (acc.fixAvailable) {
+          ab.appendChild(el("p", null, "This is fixable, and quickly. It is a few lines in one file on your site. SurgeLab writes them for your setup, applies them, and re-checks that the crawlers actually got in afterwards."));
         }
         resBox.appendChild(ab);
       } else if (acc && acc.checked && acc.robotsFetchStatus === "found" && acc.allowed.length) {
@@ -483,8 +486,7 @@
         // actually said rather than implying anything from our own refusal.
         var a = res.aiAccess;
         if (a && a.checked && a.blocked.length) {
-          resBox.appendChild(el("p", null, "It is not just us. Your robots.txt is also turning away " + a.blocked.join(", ") + " — the crawlers that read your site so AI assistants can quote you accurately. That part is fixable, and it is worth fixing."));
-          if (a.fixSnippet) { var pre = el("pre", "ar-snippet"); pre.textContent = a.fixSnippet; resBox.appendChild(pre); }
+          resBox.appendChild(el("p", null, "It is not just us. Your robots.txt is also turning away " + a.blocked.join(", ") + " — the crawlers that read your site so AI assistants can quote you accurately. That is a few lines in one file, and SurgeLab writes them for your setup, applies them, and re-checks that the crawlers actually got in afterwards."));
         } else if (a && a.checked && a.allowed.length) {
           resBox.appendChild(el("p", "muted", "Good news on the part that matters most: your robots.txt does allow " + a.allowed.join(", ") + " in, so the AI crawlers themselves are not being blocked."));
         }
