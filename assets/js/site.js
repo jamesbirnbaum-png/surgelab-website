@@ -325,12 +325,49 @@
       txt.appendChild(el("p", "muted", "Asked to " + taskCopy(res.taskType) + ", checked against " + sum.scoredPairs + (sum.scoredPairs === 1 ? " AI answer" : " AI answers") + (sum.engineErrorPairs > 0 ? " (" + sum.engineErrorPairs + " more could not be reached this time and are not counted either way)" : "") + "."));
       head.appendChild(txt); resBox.appendChild(head);
       if (sent) { var ok = el("p", "ar-sent"); ok.textContent = "Thanks, we have your details. Every gate below is something SurgeLab fixes for you, in the background."; resBox.appendChild(ok); }
+
+      // WHEN WE COULD NOT READ THEIR SITE. Said plainly rather than hidden:
+      // this result is real but was built without reading their pages, which
+      // is a harder test, and a customer deserves to know which one they got.
+      if (res.unreachable) {
+        var note = el("div", "ar-note");
+        note.appendChild(el("b", null, "We could not read your website, so we asked AI about you anyway."));
+        note.appendChild(el("p", "muted", "Your site turned away our reader, which is usually security screening doing its job. Everything below is purely what AI already knows about " + (res.domain || "your domain") + " on its own, with nothing fed to it from your pages."));
+        resBox.appendChild(note);
+      }
+
+      // THE VERDICT — what the number means and what to do about it. Comes
+      // BEFORE the gate rows on purpose: the answer first, the working after.
+      // Without this the report was four rows reading "passed 2 of 2", which
+      // told a business owner nothing and sold nothing.
+      var v = sum.verdict;
+      if (v) {
+        var vb = el("div", "ar-verdict");
+        vb.appendChild(el("h3", "display h4", v.headline));
+        vb.appendChild(el("p", null, v.whatThisMeans));
+        if (v.nextStep) {
+          var nx = el("div", "ar-next");
+          nx.appendChild(el("p", "mono muted small", "DO THIS NEXT"));
+          nx.appendChild(el("p", null, v.nextStep));
+          vb.appendChild(nx);
+        }
+        if (v.whatWasTested) vb.appendChild(el("p", "muted small", v.whatWasTested));
+        resBox.appendChild(vb);
+      }
+
       var gates = el("div", "ar-gates");
       sum.gates.forEach(function (g, i) {
         var row = el("div", "ar-gate"); row.style.setProperty("--d", (i * 90) + "ms");
         var top = el("div", "top"); var name = el("span"); name.appendChild(el("b", null, g.label)); name.appendChild(document.createTextNode(" " + g.question)); top.appendChild(name);
         top.appendChild(el("span", gateClass(g.passedCount, g.totalScored), g.totalScored ? "passed " + g.passedCount + " of " + g.totalScored : "not checked")); row.appendChild(top);
-        if (g.failureNotes && g.failureNotes.length) { var ul = el("ul"); g.failureNotes.forEach(function (n) { ul.appendChild(el("li", null, "“" + n + "”")); }); row.appendChild(ul); }
+        // What this gate costs them, in customers — passed or failed. Sent
+        // by the API so this page does not have to know the wording.
+        if (g.consequence) row.appendChild(el("p", "ar-sowhat", g.consequence));
+        if (g.failureNotes && g.failureNotes.length) {
+          row.appendChild(el("p", "mono muted small", "What the AI said"));
+          var ul = el("ul"); g.failureNotes.forEach(function (n) { ul.appendChild(el("li", null, "“" + n + "”")); }); row.appendChild(ul);
+        }
+        if (g.action) { var fx = el("p", "ar-fix"); fx.appendChild(el("b", null, "Fix: ")); fx.appendChild(document.createTextNode(g.action)); row.appendChild(fx); }
         gates.appendChild(row);
       });
       resBox.appendChild(gates);
@@ -357,7 +394,21 @@
     }
     function renderResult(res) {
       if (res.cached) { var c = el("p", "ar-cached mono muted small", "Showing a result from earlier today for this website. We re-check each site at most every twelve hours."); run.insertBefore(c, resBox); }
-      if (res.unreachable) { resBox.innerHTML = ""; resBox.appendChild(el("h2", "display h3", "We could not load your website just now.")); resBox.appendChild(el("p", "muted", "It may be down, or blocking automated visitors. Try again in a moment, or double-check the address.")); resBox.hidden = false; return; }
+      // `unreachable` means "we could not read your website". Since the
+      // domain-only fallback shipped it NO LONGER means "and so there is no
+      // result" — the checker asks the AI engines about the domain anyway.
+      // This used to return here unconditionally, which threw away a full,
+      // paid-for audit and showed an error instead: the reason x8agency.com
+      // still looked broken on this page hours after the engine was fixed.
+      // Only dead-end when there is genuinely nothing else to show.
+      if (res.unreachable && !res.locked && !(res.summary && res.summary.scoredPairs > 0)) {
+        resBox.innerHTML = "";
+        resBox.appendChild(el("h2", "display h3", "We could not read your website automatically."));
+        resBox.appendChild(el("p", "muted", "This is usually security screening on your site turning away automated visitors, which is a sensible thing for it to be doing. It does not mean anything is wrong with your website, and real customers browsing it are unaffected."));
+        resBox.appendChild(el("p", "muted", "This attempt has not counted towards your free checks, so you can try another address straight away. Whether AI crawlers can get in is a separate question worth checking."));
+        resBox.hidden = false;
+        return;
+      }
       if (res.locked) { renderLocked(res); return; }
       if (res.summary && res.summary.scoredPairs > 0) { renderFull(res, false); return; }
       resBox.innerHTML = ""; resBox.appendChild(el("h2", "display h3", "We could not finish a live check just now.")); resBox.appendChild(el("p", "muted", "Try again in a moment. This is usually a busy patch on our end, not a problem with your site.")); resBox.hidden = false;
