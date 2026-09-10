@@ -1162,3 +1162,17 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
 .mini-all { align-self: center; white-space: nowrap; font-weight: 700; color: var(--orange-ink);
   text-decoration: none; font-size: 15px; }
 .mini-all:hover { text-decoration: underline; }
+
+/* Audit result: the verdict, the per-gate consequence, and the fix.
+   Added 10 Sep 2026 — before this the report was four rows reading
+   "passed 2 of 2", which told a business owner nothing. */
+.ar-verdict { padding: 18px 20px; border-radius: 16px; border: 1px solid var(--line); background: var(--bg-2); display: grid; gap: 10px; }
+.ar-verdict h3 { margin: 0; }
+.ar-verdict > p { margin: 0; font-size: 16px; }
+.ar-next { padding: 12px 14px; border-radius: 12px; background: #fff; border: 1px solid var(--line); display: grid; gap: 4px; }
+.ar-next p { margin: 0; }
+.ar-note { padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg-2); display: grid; gap: 6px; }
+.ar-note p { margin: 0; font-size: 15px; }
+.ar-gate .ar-sowhat { margin-top: 8px; font-size: 15px; color: var(--ink); }
+.ar-gate .ar-fix { margin-top: 8px; font-size: 15px; color: var(--muted); }
+.ar-gate .ar-fix b { color: var(--ink); }
