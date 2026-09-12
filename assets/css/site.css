@@ -1193,3 +1193,19 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
 .ar-finding p { margin: 6px 0 0; font-size: 15px; }
 .ar-tease { margin: 0; font-size: 17px; }
 .ar-coverage { margin: 0; }
+
+/* ------------------------------------------------ team faces (12 Sep 2026)
+   The eight-person team on the home page uses the SAME avatar files the tool
+   itself serves (/team-avatars/<id>.svg there, copied to assets/img/team/
+   here) so the people a visitor meets on the site are the people they meet
+   after signing in. Sizes deliberately mirror the shapes these replaced:
+   .face 64px = the old .bot, .face-lg 92px = .chief-who > .bot, .face-sm
+   40px = .cc-agent .bot, .face-xs 30px = .feed .av. Keeping the sizes
+   identical means no surrounding layout had to move.
+   Licence: the artwork is a remix of "Avatar Illustration System" by Micah
+   Lanier, CC BY 4.0. Credited in the footer, and each file keeps its own
+   <metadata> block naming the creator and licence. */
+.face { width: 64px; height: 64px; border-radius: 16px; display: block; margin-bottom: 12px; background: color-mix(in srgb, var(--accent, var(--orange)) 16%, #fff); }
+.face-lg { width: 92px; height: 92px; border-radius: 22px; margin-bottom: 10px; }
+.cc-agent .face-sm { width: 40px; height: 40px; border-radius: 12px; margin: 0; }
+.feed .face-xs { width: 30px; height: 30px; border-radius: 9px; margin: 0; background: color-mix(in srgb, var(--c) 16%, #fff); }
