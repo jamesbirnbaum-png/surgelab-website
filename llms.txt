@@ -8,7 +8,7 @@ SurgeLab measures and fixes; it is not a dashboard. Every business gets a Front 
 
 - [Marketing on autopilot](https://surgelab.co/): what SurgeLab does, the five gates, how it works, add-ons, pricing and FAQ
 - [Free AI audit](https://surgelab.co/audit): two-minute check of whether AI assistants find, describe and recommend your business, no card or account
-- [AI marketing agents](https://surgelab.co/#agents): a roster of 25 single-job agents; hire two or more and The Chief of Staff joins free
+- [Your AI team](https://surgelab.co/#agents): eight AI specialists, one per part of your marketing (Tom research, Grace AI answers, Sam reviews, Jo Google listing, Nell PR, Leo content, Ravi sales email). Priya manages them and is free on every plan. They draft; the owner approves
 - [Video add-on](https://surgelab.co/#video): branded clips with asset lock, best model chosen automatically
 - [AI consultancy](https://surgelab.co/#consult): strategy days, team training and custom agents, with the founder
 
