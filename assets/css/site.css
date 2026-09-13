@@ -1209,3 +1209,10 @@ figure.chart figcaption { font-family: var(--font-mono); font-size: 12px; letter
 .face-lg { width: 92px; height: 92px; border-radius: 22px; margin-bottom: 10px; }
 .cc-agent .face-sm { width: 40px; height: 40px; border-radius: 12px; margin: 0; }
 .feed .face-xs { width: 30px; height: 30px; border-radius: 9px; margin: 0; background: color-mix(in srgb, var(--c) 16%, #fff); }
+
+/* The "and more" desk in Priya's chart (13 Sep 2026). The site names only
+   three of the team on purpose, so the third desk under Priya is a deliberate
+   placeholder rather than a person. Without this it rendered as a bare tinted
+   square and read as a failed image load. Dashed edge and a centred plus sign
+   so it reads as "there are others" at a glance. */
+.face-more { display: grid; place-items: center; background: transparent; border: 1.5px dashed color-mix(in srgb, var(--orange) 45%, var(--line)); color: color-mix(in srgb, var(--orange) 70%, var(--muted)); font-family: var(--font-display); font-size: 22px; line-height: 1; }
